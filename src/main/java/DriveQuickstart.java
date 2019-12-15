@@ -20,6 +20,8 @@ import java.util.List;
 
 public class DriveQuickstart {
 
+  private static Drive driveService;
+
   private static final String APPLICATION_NAME = "Google Drive API Java Quickstart";
   private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
   private static final String TOKENS_DIRECTORY_PATH = "tokens";
@@ -60,7 +62,7 @@ public class DriveQuickstart {
     // Build a new authorized API client service.
     try {
       final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-      Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+      driveService = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
           .setApplicationName(APPLICATION_NAME)
           .build();
     } catch (IOException | GeneralSecurityException e) {
@@ -69,5 +71,11 @@ public class DriveQuickstart {
     System.out.println("Google API сработало, авторизация прошла успешно");
   }
 
-  
+  public static Drive getDriveService() {
+    if (driveService != null) {
+      return driveService;
+    }
+    init();
+    return driveService;
+  }
 }

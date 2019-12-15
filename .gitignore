@@ -1,2 +1,20 @@
-# Project exclude paths
-/target/
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+target
+log
+*patch
+
+notes-data.txt
