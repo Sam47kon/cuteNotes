@@ -10,7 +10,7 @@ public class FindFilesByName {
   // com.google.api.services.drive.model.File
   public static final List<File> getGoogleFilesByName(String fileNameLike) throws IOException {
 
-    Drive driveService = GoogleDriveUtils.getDriveService();
+    Drive driveService = DriveQuickstart.getDriveService();
 
     String pageToken = null;
     List<File> list = new ArrayList<>();
