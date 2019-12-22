@@ -9,7 +9,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -29,7 +28,6 @@ import javax.swing.undo.UndoManager;
 public class NotesFrame extends JFrame {
 
   private static volatile boolean WINDOW_IS_ACTIVE = true;
-  private static File DATA_FILE = new File("./notes-data.txt");
 
   public NotesFrame(String title) throws HeadlessException {
     super(title);
@@ -79,11 +77,11 @@ public class NotesFrame extends JFrame {
     StringBuilder sb = new StringBuilder();
 
     try {
-      if (!DATA_FILE.isFile()) {
-        WINDOW_IS_ACTIVE = DATA_FILE.createNewFile(); // LOL
+      if (!NotesInDrive.DATA_FILE.isFile()) {
+        WINDOW_IS_ACTIVE = NotesInDrive.DATA_FILE.createNewFile(); // LOL
       }
 
-      BufferedReader reader = new BufferedReader(new FileReader(DATA_FILE));
+      BufferedReader reader = new BufferedReader(new FileReader(NotesInDrive.DATA_FILE));
       for (String buffer = reader.readLine(); buffer != null; buffer = reader.readLine()) {
         sb.append(buffer).append("\n");
       }
@@ -163,7 +161,7 @@ public class NotesFrame extends JFrame {
     }
 
     private void writeTextInFile(String text) {
-      try (FileWriter fileWriter = new FileWriter(DATA_FILE, false)) {
+      try (FileWriter fileWriter = new FileWriter(NotesInDrive.DATA_FILE, false)) {
         text = text.replaceAll("\n", "\r\n");
         fileWriter.write(text);
       } catch (Exception var3) {
