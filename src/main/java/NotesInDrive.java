@@ -45,7 +45,7 @@ public class NotesInDrive {
     System.out.println("id: " + googleFile.getId() + ", name: " + googleFile.getName());
   }
 
-  public void get_Start() throws IOException {
+  public static void get_Start() throws IOException {
     File file = getOrCreateNotesDataFile();
 
     String fileId = file.getId();
@@ -55,11 +55,8 @@ public class NotesInDrive {
       }
       GoogleDriveUtils.getDriveService().files().get(fileId).executeMediaAndDownloadTo(fileOutputStream);
       fileOutputStream.flush();
-
     }
 
-    if (!IS_FIRST_START) {
-    }
   }
 
 }
