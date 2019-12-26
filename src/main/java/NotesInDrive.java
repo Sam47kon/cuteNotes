@@ -40,18 +40,13 @@ public class NotesInDrive {
         .createGoogleFile(folder.getId(), "text/plain", DATA_FILE.getName(), DATA_FILE);
   }
 
-  public static void main(String[] args) throws IOException {
-    File googleFile = getOrCreateNotesDataFile();
-    System.out.println("id: " + googleFile.getId() + ", name: " + googleFile.getName());
-  }
-
   public static void get_Start() throws IOException {
     File file = getOrCreateNotesDataFile();
 
     String fileId = file.getId();
     try (OutputStream fileOutputStream = new FileOutputStream(DATA_FILE)) {
       if (!DATA_FILE.exists()) {
-        DATA_FILE.createNewFile();
+        IS_FIRST_START = DATA_FILE.createNewFile();
       }
       GoogleDriveUtils.getDriveService().files().get(fileId).executeMediaAndDownloadTo(fileOutputStream);
       fileOutputStream.flush();
