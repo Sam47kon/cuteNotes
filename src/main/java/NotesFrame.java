@@ -43,6 +43,7 @@ public class NotesFrame extends JFrame {
     this.setVisible(true);
     this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     this.setSize(new Dimension(400, 300));
+    this.setAlwaysOnTop(true);
     this.setLocationRelativeTo(null);
 
     toPlugWindowListener();
@@ -164,6 +165,7 @@ public class NotesFrame extends JFrame {
       try (FileWriter fileWriter = new FileWriter(NotesInDrive.DATA_FILE, false)) {
         text = text.replaceAll("\n", "\r\n");
         fileWriter.write(text);
+        System.out.println("Трололо");
       } catch (Exception var3) {
         var3.printStackTrace();
       }

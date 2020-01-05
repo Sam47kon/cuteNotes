@@ -19,24 +19,18 @@ import java.util.List;
 
 public class DriveQuickstart {
 
+  private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
   private static final String APPLICATION_NAME = "Google Drive API Java Quickstart";
   private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
-  // Directory to store user credentials for this application.
   private static final java.io.File CREDENTIALS_FOLDER
       = new java.io.File(System.getProperty("user.home"), "credentials");
-  // Global instance of the {@link FileDataStoreFactory}.
   private static FileDataStoreFactory DATA_STORE_FACTORY;
 
-  /**
-   * Global instance of the scopes required by this quickstart. If modifying these scopes, delete your previously saved
-   * tokens/ folder.
-   */
   private static final List<String> SCOPES = Collections.singletonList(DriveScopes.DRIVE);
-  private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
 
-  // The network HTTP Transport
   private static NetHttpTransport HTTP_TRANSPORT;
+
   private static Drive driveService;
 
   static {
@@ -49,21 +43,12 @@ public class DriveQuickstart {
     }
   }
 
-  /**
-   * Creates an authorized Credential object.
-   *
-   * @return An authorized Credential object.
-   * @throws IOException If the credentials.json file cannot be found.
-   */
   private static Credential getCredentials() throws IOException {
-    // Load client secrets.
     InputStream in = DriveQuickstart.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
     if (in == null) {
       throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
     }
     GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
-
-    // Build flow and trigger user authorization request.
     GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
         HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
         .setDataStoreFactory(DATA_STORE_FACTORY)
@@ -82,10 +67,6 @@ public class DriveQuickstart {
   }
 
   public static Drive getDriveService() throws IOException {
-    if (driveService != null) {
-      return driveService;
-    }
-    init();
     return driveService;
   }
 }
